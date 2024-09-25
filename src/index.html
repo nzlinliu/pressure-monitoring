@@ -1,132 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>实时气压温度湿度监测</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        .container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .chart-container {
-            width: 30%;
-            position: relative;
-        }
-        .indicator {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin: 10px auto;
-        }
-        .green {
-            background-color: green;
-        }
-        .red {
-            background-color: red;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Vanilla JavaScript App</title>
 </head>
+
 <body>
-    <div class="container">
-        <div class="chart-container">
-            <canvas id="pressureChart"></canvas>
-            <div class="indicator" id="pressureIndicator"></div>
-        </div>
-        <div class="chart-container">
-            <canvas id="temperatureChart"></canvas>
-            <div class="indicator" id="temperatureIndicator"></div>
-        </div>
-        <div class="chart-container">
-            <canvas id="humidityChart"></canvas>
-            <div class="indicator" id="humidityIndicator"></div>
-        </div>
-    </div>
-
-    <script>
-        // 数据的警戒线
-        const pressureWarning = 1010;
-        const temperatureWarning = 35;
-        const humidityWarning = 80;
-
-        function updateIndicator(value, threshold, elementId) {
-            const indicator = document.getElementById(elementId);
-            if (value > threshold) {
-                indicator.classList.remove('green');
-                indicator.classList.add('red');
-            } else {
-                indicator.classList.remove('red');
-                indicator.classList.add('green');
-            }
-        }
-
-        // 示例图表数据
-        const pressureData = [1008, 1009, 1011, 1007, 1012];
-        const temperatureData = [30, 32, 36, 33, 34];
-        const humidityData = [70, 75, 78, 85, 90];
-
-        // 更新指示灯状态
-        updateIndicator(pressureData[pressureData.length - 1], pressureWarning, 'pressureIndicator');
-        updateIndicator(temperatureData[temperatureData.length - 1], temperatureWarning, 'temperatureIndicator');
-        updateIndicator(humidityData[humidityData.length - 1], humidityWarning, 'humidityIndicator');
-
-        // 图表配置
-        const createChart = (ctx, label, data, threshold) => {
-            return new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['2024-09-20', '2024-09-21', '2024-09-22', '2024-09-23', '2024-09-24'],
-                    datasets: [{
-                        label: label,
-                        data: data,
-                        borderColor: 'blue',
-                        borderWidth: 2,
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            afterDataLimits: function(scale) {
-                                scale.max = Math.max(threshold, scale.max);
-                            }
-                        }
-                    },
-                    plugins: {
-                        annotation: {
-                            annotations: {
-                                line1: {
-                                    type: 'line',
-                                    yMin: threshold,
-                                    yMax: threshold,
-                                    borderColor: 'red',
-                                    borderWidth: 2,
-                                    label: {
-                                        content: '警戒线',
-                                        enabled: true,
-                                        position: 'end'
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        };
-
-        // 初始化三个图表
-        const ctxPressure = document.getElementById('pressureChart').getContext('2d');
-        const ctxTemperature = document.getElementById('temperatureChart').getContext('2d');
-        const ctxHumidity = document.getElementById('humidityChart').getContext('2d');
-
-        createChart(ctxPressure, '气压 (hPa)', pressureData, pressureWarning);
-        createChart(ctxTemperature, '温度 (°C)', temperatureData, temperatureWarning);
-        createChart(ctxHumidity, '湿度 (%)', humidityData, humidityWarning);
-    </script>
+  <main>
+    <h1>Vanilla JavaScript App</h1>
+  </main>
 </body>
+
 </html>
